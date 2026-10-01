@@ -1,0 +1,6 @@
+venv/
+__pycache__/
+*.pyc
+iot_data.db
+local_secrets.py
+.vscode/

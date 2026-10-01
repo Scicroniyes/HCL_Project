@@ -1,0 +1,47 @@
+{
+  "machine_type": "wind_turbine",
+  "machine_id": "wt01",
+  "source": "CARE to Compare, Wind Farm A (ranges are placeholders until calibrated)",
+  "parameters": {
+    "wind_speed": {
+      "label": "Wind speed", "unit": "m/s", "column": "wind_speed_3_avg",
+      "normal": [3, 15], "warning_high": 20, "critical_high": 25,
+      "sim": {"mean": 8.0, "std": 3.0}
+    },
+    "active_power": {
+      "label": "Active power", "unit": "kW", "column": "sensor_45_avg + sensor_46_avg",
+      "normal": [0, 2000], "warning_high": 2200, "critical_high": 2400,
+      "sim": {"mean": 700, "std": 350}
+    },
+    "generator_rpm": {
+      "label": "Generator speed", "unit": "rpm", "column": "sensor_18_avg",
+      "normal": [0, 1700], "warning_high": 1800, "critical_high": 1900,
+      "sim": {"mean": 1200, "std": 250}
+    },
+    "gearbox_oil_temp": {
+      "label": "Gearbox oil temperature", "unit": "°C", "column": "sensor_12_avg",
+      "normal": [35, 65], "warning_high": 70, "critical_high": 80,
+      "sim": {"mean": 52, "std": 3}
+    },
+    "gearbox_bearing_temp": {
+      "label": "Gearbox bearing temperature", "unit": "°C", "column": "sensor_11_avg",
+      "normal": [40, 70], "warning_high": 78, "critical_high": 88,
+      "sim": {"mean": 58, "std": 3}
+    },
+    "gen_bearing_temp": {
+      "label": "Generator bearing temperature", "unit": "°C", "column": "sensor_13_avg",
+      "normal": [35, 70], "warning_high": 80, "critical_high": 90,
+      "sim": {"mean": 55, "std": 3}
+    },
+    "stator_temp": {
+      "label": "Generator stator temperature", "unit": "°C", "column": "sensor_15_avg",
+      "normal": [40, 100], "warning_high": 120, "critical_high": 140,
+      "sim": {"mean": 75, "std": 5}
+    },
+    "vibration": {
+      "label": "Vibration (simulated)", "unit": "mm/s", "column": null,
+      "normal": [0.3, 2.5], "warning_high": 4.5, "critical_high": 7.0,
+      "sim": {"mean": 1.2, "std": 0.2}
+    }
+  }
+}

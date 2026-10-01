@@ -1,0 +1,68 @@
+{
+  "faults": [
+    {
+      "id": "gearbox_overheat",
+      "name": "Gearbox overheating",
+      "symptoms": ["gearbox_oil_temp", "gearbox_bearing_temp"],
+      "causes": [
+        "Low gearbox oil level or degraded oil",
+        "Blocked oil cooler or failed cooling fan",
+        "Excessive friction from worn gears or bearings"
+      ],
+      "checks": [
+        "Check gearbox oil level and oil condition",
+        "Inspect the oil cooler and cooling fan operation",
+        "Take an oil sample and look for metal particles"
+      ],
+      "severity": "high"
+    },
+    {
+      "id": "bearing_wear",
+      "name": "Bearing wear",
+      "symptoms": ["vibration", "gearbox_bearing_temp"],
+      "causes": [
+        "Worn or damaged bearing",
+        "Insufficient lubrication",
+        "Shaft misalignment"
+      ],
+      "checks": [
+        "Inspect bearing lubrication and grease condition",
+        "Run a vibration analysis on the drivetrain",
+        "Check shaft alignment"
+      ],
+      "severity": "high"
+    },
+    {
+      "id": "generator_overheat",
+      "name": "Generator overheating",
+      "symptoms": ["gen_bearing_temp", "stator_temp"],
+      "causes": [
+        "Blocked generator cooling air path",
+        "Failed cooling fan",
+        "Electrical overload or winding insulation problem"
+      ],
+      "checks": [
+        "Inspect generator cooling fan and air filters",
+        "Check stator winding insulation resistance",
+        "Review recent power output for overload"
+      ],
+      "severity": "high"
+    },
+    {
+      "id": "excess_vibration",
+      "name": "Excessive vibration",
+      "symptoms": ["vibration"],
+      "causes": [
+        "Blade imbalance, for example ice, dirt or damage",
+        "Loose mounting or tower bolts",
+        "Early-stage bearing or gear wear"
+      ],
+      "checks": [
+        "Inspect blades for ice, damage or dirt",
+        "Check bolt tightness on the nacelle and tower",
+        "Compare vibration at different rotor speeds"
+      ],
+      "severity": "medium"
+    }
+  ]
+}
