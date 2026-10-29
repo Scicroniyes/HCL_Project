@@ -214,4 +214,4 @@ The parameter selection is based on the public **CARE to Compare** wind turbine 
 
 ---
 
-Author: [Your name]
+Author: Sujal Kumar
