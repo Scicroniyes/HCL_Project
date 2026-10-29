@@ -7,7 +7,8 @@ import config
 from mqtt_client import make_client
 from analyzer import full_analysis
 
-db = sqlite3.connect(os.path.join(ROOT, "iot_data.db"), check_same_thread=False)
+DB_PATH = os.environ.get("DB_PATH", os.path.join(ROOT, "iot_data.db"))
+db = sqlite3.connect(DB_PATH, check_same_thread=False)
 db.execute("""
     CREATE TABLE IF NOT EXISTS readings (
         id INTEGER PRIMARY KEY AUTOINCREMENT,

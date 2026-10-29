@@ -4,3 +4,4 @@ __pycache__/
 iot_data.db
 local_secrets.py
 .vscode/
+rag_store/

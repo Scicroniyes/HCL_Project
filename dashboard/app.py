@@ -6,7 +6,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "analyzers"))
 from analyzer import full_analysis
 
-DB = os.path.join(ROOT, "iot_data.db")
+DB = os.environ.get("DB_PATH", os.path.join(ROOT, "iot_data.db"))
 
 st.set_page_config(page_title="Turbine Fault Diagnosis", layout="wide")
 st.title("Wind Turbine Fault Diagnosis Assistant")
@@ -17,6 +17,18 @@ def query(sql):
     df = pd.read_sql_query(sql, con)
     con.close()
     return df
+
+@st.cache_resource
+def load_explainer():
+    sys.path.insert(0, os.path.join(ROOT, "rag"))
+    from explain import explain
+    return explain
+
+@st.cache_resource
+def load_explainer():
+    sys.path.insert(0, os.path.join(ROOT, "rag"))
+    from explain import explain
+    return explain
 
 
 @st.fragment(run_every=2)
@@ -75,6 +87,20 @@ def live():
         if others:
             st.caption("Also possible: " + ", ".join(
                 f"{d['name']} ({d['confidence']}%)" for d in others))
+        
+        symptom_text = "; ".join(
+            f"{s['label']} {s['value']} {s['unit']} ({s['status']})"
+            for s in result["symptoms"])
+        if st.button("Explain with AI"):
+            with st.spinner("Local LLM is writing the explanation..."):
+                answer, sources = load_explainer()(symptom_text)
+            st.session_state["ai"] = {"answer": answer, "sources": sources}
+
+        ai = st.session_state.get("ai")
+        if ai:
+            st.markdown("#### AI explanation (local LLM + RAG)")
+            st.write(ai["answer"])
+            st.caption("Sources: " + ", ".join(ai["sources"]))    
 
     # 5. history
     st.subheader("Diagnosis history (latest 10)")

@@ -5,3 +5,54 @@ services:
       - "1883:1883"
     volumes:
       - ./mosquitto/config:/mosquitto/config
+    restart: unless-stopped
+
+  simulator:
+    build: .
+    image: iot-fault-assistant
+    command: python -u simulators/sim1.py
+    stdin_open: true
+    tty: true
+    environment:
+      MQTT_HOST: mosquitto
+      MQTT_PORT: "1883"
+      MQTT_TLS: "false"
+      AUTO_FAULTS: "true"
+    depends_on:
+      - mosquitto
+    restart: unless-stopped
+
+  subscriber:
+    build: .
+    image: iot-fault-assistant
+    command: python -u subscriber/subscriber.py
+    environment:
+      MQTT_HOST: mosquitto
+      MQTT_PORT: "1883"
+      MQTT_TLS: "false"
+      DB_PATH: /app/data/iot_data.db
+    volumes:
+      - appdata:/app/data
+    depends_on:
+      - mosquitto
+    restart: unless-stopped
+
+  dashboard:
+    build: .
+    image: iot-fault-assistant
+    command: sh -c "python rag/build_index.py && streamlit run dashboard/app.py --server.address=0.0.0.0 --server.port=8501 --server.headless=true"
+    ports:
+      - "8501:8501"
+    environment:
+      DB_PATH: /app/data/iot_data.db
+      OLLAMA_HOST: http://host.docker.internal:11434
+    volumes:
+      - appdata:/app/data
+      - hfcache:/root/.cache/huggingface
+    depends_on:
+      - subscriber
+    restart: unless-stopped
+
+volumes:
+  appdata:
+  hfcache:
